@@ -8,6 +8,7 @@ Resources for learning:
 
 [Beginners Guide](https://www.researchgate.net/publication/263084656_A_Beginners_Guide_to_AVR)
 
+[ATmega328P_Datasheet](./pdf/ATmega328P_Datasheet.pdf)
 ![Real world setup](./images/Pinout_of_the_NANO.png)
 ![Arduino Nano](./images/setup.jpg)
 
