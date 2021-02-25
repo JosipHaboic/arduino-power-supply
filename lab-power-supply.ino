@@ -7,7 +7,6 @@
 #include "./buttons.h"
 #include "./utility.h"
 
-
 // duty cycle clamps
 const uint8_t DUTY_CYCLE_MIN = 0;
 const uint8_t DUTY_CYCLE_MAX = 230;
@@ -25,10 +24,9 @@ StaticJsonDocument<capacity> jsonDocument;
 void display_setup(void);
 void display_update(void);
 
-
 void setup()
 {
-  Serial.begin(9600);
+	Serial.begin(9600);
 
 	buttons_setup();
 	display_setup();
@@ -49,28 +47,33 @@ void loop(void)
 	pwm_set_duty_cycle(duty_cycle);
 
 	// process buttons input
-	if (digitalRead(PD2) == LOW) {
-		if (duty_cycle > DUTY_CYCLE_MIN) {
+	if (digitalRead(PD2) == LOW)
+	{
+		if (duty_cycle > DUTY_CYCLE_MIN)
+		{
 			duty_cycle -= 1;
 		}
 	}
-	if (digitalRead(PD3) == LOW) {
-		if (duty_cycle < DUTY_CYCLE_MAX) {
+	if (digitalRead(PD3) == LOW)
+	{
+		if (duty_cycle < DUTY_CYCLE_MAX)
+		{
 			duty_cycle += 1;
 		}
 	}
 	// display stuff
 	display_update();
 
-  jsonDocument["ADC"]["vin"] = adc_vin;
-  jsonDocument["ADC"]["vout"] = adc_vout;
-  jsonDocument["PWM"]["dutyCycle"] = duty_cycle_to_percent(duty_cycle);
+	jsonDocument["ADC"]["vin"] = adc_vin;
+	jsonDocument["ADC"]["vout"] = adc_vout;
+	jsonDocument["PWM"]["dutyCycle"] = duty_cycle_to_percent(duty_cycle);
 
-  serializeJson(jsonDocument, Serial);
-  Serial.println();
+	serializeJson(jsonDocument, Serial);
+	Serial.println();
 }
 
-void display_update(void) {
+void display_update(void)
+{
 	oled.clearDisplay();
 	oled.setCursor(0, 0);
 

@@ -1,8 +1,9 @@
-void adc_setup(void) {
+void adc_setup(void)
+{
 	analogReference(EXTERNAL);
 	pinMode(A0, INPUT);
 	pinMode(A1, INPUT);
-	ADCSRA |= (1 << ADPS1 |1 << ADPS0); // prescaler of 8
+	ADCSRA |= (1 << ADPS1 | 1 << ADPS0); // prescaler of 8
 }
 
 float adc_read(uint8_t adc, float vref)
