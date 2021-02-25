@@ -1,0 +1,8 @@
+{
+    "port": "COM3",
+    "board": "arduino:avr:nano",
+    "configuration": "cpu=atmega328old",
+    "programmer": "AVRISP mkII",
+    "sketch": "lab-power-supply.ino",
+    "output": "./build"
+}
