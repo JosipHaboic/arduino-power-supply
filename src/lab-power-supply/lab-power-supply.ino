@@ -1,7 +1,7 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include <ArduinoJson.h>
-#include "./oled.h"
+#include "./display.h"
 #include "./adc.h"
 #include "./pwm.h"
 #include "./buttons.h"
@@ -34,6 +34,8 @@ void setup()
 	pwm_setup();
 	pwm_set_duty_cycle(0);
 	pwm_start();
+	attachInterrupt(digitalPinToInterrupt(2), decrease_pwm, HIGH);
+	attachInterrupt(digitalPinToInterrupt(3), increase_pwm, HIGH);
 }
 
 void loop(void)
@@ -46,21 +48,6 @@ void loop(void)
 	// generate PWM
 	pwm_set_duty_cycle(duty_cycle);
 
-	// process buttons input
-	if (digitalRead(PD2) == LOW)
-	{
-		if (duty_cycle > DUTY_CYCLE_MIN)
-		{
-			duty_cycle -= 1;
-		}
-	}
-	if (digitalRead(PD3) == LOW)
-	{
-		if (duty_cycle < DUTY_CYCLE_MAX)
-		{
-			duty_cycle += 1;
-		}
-	}
 	// display stuff
 	display_update();
 
@@ -70,6 +57,24 @@ void loop(void)
 
 	serializeJson(jsonDocument, Serial);
 	Serial.println();
+}
+
+void decrease_pwm(void)
+{
+	if (duty_cycle > DUTY_CYCLE_MIN)
+	{
+		duty_cycle -= 1;
+    delayMicroseconds(500);
+	}
+}
+
+void increase_pwm(void)
+{
+	if (duty_cycle < DUTY_CYCLE_MAX)
+	{
+		duty_cycle += 1;
+    delayMicroseconds(500);
+	}
 }
 
 void display_update(void)
@@ -99,3 +104,21 @@ void display_update(void)
 
 	oled.display();
 }
+
+// void buttons_handle() {
+// 	// process buttons input
+// 	if (digitalRead(PD2) == LOW)
+// 	{
+// 		if (duty_cycle > DUTY_CYCLE_MIN)
+// 		{
+// 			duty_cycle -= 1;
+// 		}
+// 	}
+// 	if (digitalRead(PD3) == LOW)
+// 	{
+// 		if (duty_cycle < DUTY_CYCLE_MAX)
+// 		{
+// 			duty_cycle += 1;
+// 		}
+// 	}
+// }
