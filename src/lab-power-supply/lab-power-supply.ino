@@ -9,7 +9,7 @@
 
 // duty cycle clamps
 const uint8_t DUTY_CYCLE_MIN = 0;
-const uint8_t DUTY_CYCLE_MAX = 230;
+const uint8_t DUTY_CYCLE_MAX = 255;
 
 // Voltage at VREF
 const String SPACER = "-------------";
