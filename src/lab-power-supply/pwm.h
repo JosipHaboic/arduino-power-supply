@@ -1,5 +1,6 @@
 void pwm_setup(void)
 {
+	// Output on digital 6 port
 	DDRD |= (1 << DDD6);
 	TCCR0A |= (1 << COM0A1);
 	TCCR0A |= (1 << WGM01) | (1 << WGM00);
