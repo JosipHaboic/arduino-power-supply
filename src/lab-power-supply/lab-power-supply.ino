@@ -11,15 +11,15 @@
 const uint8_t DUTY_CYCLE_MIN = 0;
 const uint8_t DUTY_CYCLE_MAX = 255;
 
-// Voltage at VREF
-const String SPACER = "-------------";
+// Voltage at VREF (meassured by DMM)
 const float VREF = 4.50;
+float vin = 0.00;
+float vout = 0.00;
 volatile uint8_t duty_cycle = 0;
-volatile bool button_pressed = false;
-float adc_vin = 0.00;
-float adc_vout = 0.00;
 const int capacity = 48;
 StaticJsonDocument<capacity> jsonDocument;
+volatile bool button_pressed = false;
+const String SPACER = "---------------------";
 
 void display_setup(void);
 void display_update(void);
@@ -41,9 +41,11 @@ void setup()
 void loop(void)
 {
 	// read ADC
-	adc_vin = adc_read(A0, VREF);
+	// adc_vin = adc_read(A0, VREF);
+	vin = adc_read(A0, VREF);
 	delay(10);
-	adc_vout = adc_read(A1, VREF);
+	// adc_vout = adc_read(A1, VREF);
+	vout = adc_read(A1, VREF);
 
 	// generate PWM
 	pwm_set_duty_cycle(duty_cycle);
@@ -51,8 +53,8 @@ void loop(void)
 	// display stuff
 	display_update();
 
-	jsonDocument["ADC"]["vin"] = adc_vin;
-	jsonDocument["ADC"]["vout"] = adc_vout;
+	jsonDocument["ADC"]["vin"] = vin;
+	jsonDocument["ADC"]["vout"] = vout;
 	jsonDocument["PWM"]["dutyCycle"] = duty_cycle_to_percent(duty_cycle);
 
 	serializeJson(jsonDocument, Serial);
@@ -85,14 +87,14 @@ void display_update(void)
 	oled.setTextSize(1);
 	oled.print("Vin   ");
 	oled.setTextSize(2);
-	oled.println(adc_vin);
+	oled.println(vin);
 	oled.setTextSize(1);
 	oled.println(SPACER);
 
 	oled.setTextSize(1);
 	oled.print("Vout  ");
 	oled.setTextSize(2);
-	oled.println(adc_vout);
+	oled.println(vout);
 	oled.setTextSize(1);
 	oled.println(SPACER);
 
