@@ -51,7 +51,7 @@ void decrease_pwm(void)
 	if (duty_cycle > DUTY_CYCLE_MIN)
 	{
 		duty_cycle -= 1;
-		delayMicroseconds(500);
+		delayMicroseconds(2000);
 	}
 }
 
@@ -60,6 +60,6 @@ void increase_pwm(void)
 	if (duty_cycle < DUTY_CYCLE_MAX)
 	{
 		duty_cycle += 1;
-		delayMicroseconds(500);
+		delayMicroseconds(2000);
 	}
 }
