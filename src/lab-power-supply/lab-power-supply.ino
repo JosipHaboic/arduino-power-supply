@@ -44,6 +44,10 @@ void loop(void)
 
 	// send json data over serial port
 	sendData(vin, vout, duty_cycle, "\r\n");
+
+	// if (Serial.available() > 0) {
+		// readData();
+	// }
 }
 
 void decrease_pwm(void)
