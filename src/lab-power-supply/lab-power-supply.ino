@@ -11,8 +11,10 @@
 
 // Voltage at VREF (meassured by DMM)
 const float VREF = 4.50;
+
 float vin = 0.00;
 float vout = 0.00;
+
 
 void setup()
 {
