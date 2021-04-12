@@ -1,6 +1,8 @@
 #include "Arduino.h"
 #include "stdint.h"
 
+const uint8_t DUTY_CYCLE_MIN = 0;
+const uint8_t DUTY_CYCLE_MAX = 255;
 
 void pwm_setup(void)
 {

@@ -1,13 +1,13 @@
 #include "json.h"
 #include "utility.h"
 
-
-void sendData(float vin, float vout, short int duty_cycle, String delimiter)
+void sendData(float vin, float vout, short int voltage_duty_cycle, short int current_duty_cycle, String delimiter)
 {
 	StaticJsonDocument<48> jsonDocument;
 	jsonDocument["ADC"]["vin"] = vin;
 	jsonDocument["ADC"]["vout"] = vout;
-	jsonDocument["PWM"]["dutyCycle"] = duty_cycle_to_percent(duty_cycle);
+	jsonDocument["PWM"]["dutyCycle"]["voltage"] = duty_cycle_to_percent(voltage_duty_cycle);
+	jsonDocument["PWM"]["dutyCycle"]["current"] = duty_cycle_to_percent(current_duty_cycle);
 
 	serializeJson(jsonDocument, Serial);
 	Serial.println(delimiter);
