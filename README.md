@@ -19,3 +19,5 @@ Parts needed:
 * 2x 1kΩ resistor
 * 1x 2.2μF 50V (in my case, any in range 1μF-4.7μF and 10V-50V is good enough)
 * 1x OLED (Oak type) display (optional)
+
+PWM runs at 62 500hz

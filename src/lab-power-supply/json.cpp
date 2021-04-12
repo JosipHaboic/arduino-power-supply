@@ -13,9 +13,30 @@ void sendData(float vin, float vout, short int duty_cycle, String delimiter)
 	Serial.println(delimiter);
 }
 
-DynamicJsonDocument readData(void)
+StaticJsonDocument<48> deserialize(String data)
 {
-	DynamicJsonDocument doc(128);
-	DeserializationError err = deserializeJson(doc, Serial.readString());
-	return doc;
+	StaticJsonDocument<48> jsonDocument;
+	DeserializationError err = deserializeJson(jsonDocument, data);
+
+	if (err == DeserializationError::IncompleteInput) {
+		jsonDocument["error"] = "IncompleteInput";
+	}
+	if (err == DeserializationError::InvalidInput)
+	{
+		jsonDocument["error"] = "InvalidInput";
+	}
+	if (err == DeserializationError::NoMemory)
+	{
+		jsonDocument["error"] = "NoMemory";
+	}
+	if (err == DeserializationError::NotSupported)
+	{
+		jsonDocument["error"] = "NotSupported";
+	}
+	if (err == DeserializationError::TooDeep)
+	{
+		jsonDocument["error"] = "TooDeep";
+	}
+
+	return jsonDocument;
 }
