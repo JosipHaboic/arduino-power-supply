@@ -26,11 +26,11 @@ void pwm_start(void)
 
 void pwm_set_duty_cycle(uint8_t pin, uint8_t duty_cycle)
 {
-	if (pin === 6) {
+	if (pin == 6) {
 		OCR0A = duty_cycle;
 		return;
 	}
-	if (pin === 5) {
+	if (pin == 5) {
 		OCR0B = duty_cycle;
 		return;
 	}
@@ -40,7 +40,7 @@ void decrease_pwm(uint8_t pin)
 {
 	uint8_t register_value;
 
-	if (pin === 6) {
+	if (pin == 6) {
 		// read in value from Output Compare Register A
 		register_value = OCR0A;
 		// dont go bellow zero
@@ -52,7 +52,7 @@ void decrease_pwm(uint8_t pin)
 		return;
 	}
 
-	if (pin === 5) {
+	if (pin == 5) {
 		register_value = OCR0B;
 		if (register_value == DUTY_CYCLE_MIN)
 		{
